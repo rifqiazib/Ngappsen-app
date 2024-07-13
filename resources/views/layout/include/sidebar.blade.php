@@ -58,7 +58,7 @@
             </button>
             <ul id="dropdown-config" class="hidden py-2 space-y-2">
                <li>
-                  <a href="{{ route('department') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Office Location</a>
+                  <a href="{{ route('office') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Office Location</a>
                </li>
                <li>
                   <a href="{{ route('department') }}" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Working Hour</a>

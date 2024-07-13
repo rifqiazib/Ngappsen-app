@@ -8,6 +8,7 @@ use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\OfficeLocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,3 +50,8 @@ Route::post('staff/store',[StaffController::class, 'store'])->name('staff.store'
 Route::put('staff/update',[StaffController::class, 'update'])->name('staff.update');
 Route::delete('staff/delete/{id}',[StaffController::class, 'delete'])->name('staff.delete');
 
+Route::get('office-location',[OfficeLocationController::Class, 'index'])->name('office');
+Route::post('office-location/store',[OfficeLocationController::class, 'store'])->name('office.store');
+Route::get('office-location/edit/{id}',[OfficeLocationController::class, 'edit'])->name('office.edit');
+Route::put('office-location/update/{id}',[OfficeLocationController::class, 'update'])->name('office.update');
+Route::delete('office-location/delete/{id}',[OfficeLocationController::class, 'delete'])->name('office.delete');
