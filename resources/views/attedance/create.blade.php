@@ -46,16 +46,22 @@
         function successCallback(position) {
             locationInput.value = position.coords.latitude + ", " + position.coords.longitude;
             var map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 16);
+            var officeLocation = "{{ $officeLocation->location }}";
+            var office = officeLocation.split(",");
+            var latOffice = office[0];
+            var langOffice = office[1];
+            var radius = "{{ $officeLocation->radius }}";
+            
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
                 attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             }).addTo(map);
             var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
-            var circle = L.circle([-8.141952840443787, 112.58565240240995], {
+            var circle = L.circle([latOffice, langOffice], {
                 color: 'red',
                 fillColor: '#f03',
                 fillOpacity: 0.5,
-                radius: 100
+                radius: radius
             }).addTo(map);
         }
 

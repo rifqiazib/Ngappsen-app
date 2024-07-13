@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Attedance;
+use App\Models\OfficeLocation;
 
 class AttedanceController extends Controller
 {
@@ -19,26 +20,31 @@ class AttedanceController extends Controller
     public function create() {
         $date = date("Y-m-d");
         $id_user = Auth::user()->id;
-        $check = DB::table('attedances')->where('date', $date)->where('id_user', $id_user)->count();
-        return view('attedance.create', compact('check'));
+        $data['officeLocation'] = DB::table('office_locations')->where('id', 2)->first();
+        
+        $data['check'] = DB::table('attedances')->where('date', $date)->where('id_user', $id_user)->count();
+        return view('attedance.create', $data);
     }
 
     public function store (Request $request) {
        $id_user = Auth::user()->id;
+       $officeLocation = DB::table('office_locations')->where('id', 2)->first();
+       $office = explode(',', $officeLocation->location);
+      
        $date = date("Y-m-d");
        $entry_time = date("H:i:s");
        $location = $request->location;
        $user_location = explode(',', $location);
        $lat_user = $user_location[0];
        $long_user = $user_location[1];
-       $lat_office = $user_location[0];
-       $long_office = $user_location[1];
+       $lat_office = $office[0];
+       $long_office = $office[1];
        $distances = $this->distance($lat_office, $long_office, $lat_user, $long_user);
        $radius = round($distances["meters"]);
 
 
        $check = DB::table('attedances')->where('date', $date)->where('id_user', $id_user)->count();
-       if($radius > 10) {
+       if($radius > $officeLocation->radius) {
         return "error|Maaf Anda Berada Di Luar Radius|";
        } else {
            if($check > 0) {
