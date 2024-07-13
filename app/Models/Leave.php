@@ -14,6 +14,11 @@ class Leave extends Model
         'date_start',
         'date_end',
         'explanation',
-        'status'
+        'status',
+        'status_approved'
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class, 'id_user');
+    }
 }

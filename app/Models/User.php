@@ -47,4 +47,8 @@ class User extends Authenticatable
     public function attedance() {
         return $this->hasMany(Attendance::class, 'id_user');
     }
+
+    public function staff() {
+        return $this->hasOne(Staff::class, 'id_user');
+    }
 }

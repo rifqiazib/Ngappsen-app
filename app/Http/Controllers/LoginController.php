@@ -32,8 +32,7 @@ class LoginController extends Controller
         if(Auth::attempt($user)) {
             return view('dashboard.index');
         } else {
-            return "ASSAS";
-            // return Redirect::back()->withInput()->with('failed', 'Login Failed!');
+            return Redirect::back()->withInput()->with('failed', 'Login Failed!');
         }
     }
     

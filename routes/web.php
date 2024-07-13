@@ -40,6 +40,7 @@ Route::get('history',[HistoryController::class, 'index'])->name('history');
 Route::get('leave', [LeaveController::class, 'index'])->name('leave');
 Route::get('leave/create',[LeaveController::class, 'create'])->name('leave.create');
 Route::post('leave/store', [LeaveController::class, 'store'])->name('leave.store');
+Route::put('leave/approval/{id}',[LeaveController::class, 'approval'])->name('leave.approval');
 
 Route::get('department',[DepartmentController::class, 'index'])->name('department');
 Route::post('department/store',[DepartmentController::class, 'store'])->name('department.store');
