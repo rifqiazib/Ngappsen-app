@@ -10,9 +10,15 @@ use App\Models\Leave;
 class LeaveController extends Controller
 {
     public function index() {
+        $perPage = 10;
+        $data['leaves'] = Leave::paginate($perPage);
+        return view('leave.index', $data);
+    }
+
+    public function create() {
         $id_user = Auth::user()->id;
         $data['leaves'] = Leave::where('id_user', $id_user)->get();
-        return view('leave.index', $data);
+        return view('leave.create', $data);
     }
 
     public function store(Request $request) {

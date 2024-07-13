@@ -38,7 +38,8 @@ Route::post('attedance/store',[AttedanceController::class, 'store'])->name('atte
 Route::get('history',[HistoryController::class, 'index'])->name('history');
 
 Route::get('leave', [LeaveController::class, 'index'])->name('leave');
-Route::post('leave/create', [LeaveController::class, 'store'])->name('leave.store');
+Route::get('leave/create',[LeaveController::class, 'create'])->name('leave.create');
+Route::post('leave/store', [LeaveController::class, 'store'])->name('leave.store');
 
 Route::get('department',[DepartmentController::class, 'index'])->name('department');
 Route::post('department/store',[DepartmentController::class, 'store'])->name('department.store');
@@ -46,8 +47,10 @@ Route::put('department/update',[DepartmentController::class, 'update'])->name('d
 Route::delete('department/delete/{id}',[DepartmentController::class, 'delete'])->name('department.delete');
 
 Route::get('staff',[StaffController::class, 'index'])->name('staff');
+Route::get('staff/create',[StaffController::class, 'create'])->name('staff.create');
 Route::post('staff/store',[StaffController::class, 'store'])->name('staff.store');
-Route::put('staff/update',[StaffController::class, 'update'])->name('staff.update');
+Route::get('staff/edit/{id}',[StaffController::class, 'edit'])->name('staff.edit');
+Route::put('staff/update/{id}',[StaffController::class, 'update'])->name('staff.update');
 Route::delete('staff/delete/{id}',[StaffController::class, 'delete'])->name('staff.delete');
 
 Route::get('office-location',[OfficeLocationController::Class, 'index'])->name('office');

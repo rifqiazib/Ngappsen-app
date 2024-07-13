@@ -13,10 +13,16 @@ class Staff extends Model
         'name',
         'phone',
         'position',
-        'id_department'
+        'id_department',
+        'id_user'
     ];
 
     public function department(){
         return $this->belongsTo(Department::class, 'id_department');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user');
     }
 }
