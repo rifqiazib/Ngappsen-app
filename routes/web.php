@@ -9,6 +9,7 @@ use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\OfficeLocationController;
+use App\Http\Controllers\WorkingHourController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,3 +60,10 @@ Route::post('office-location/store',[OfficeLocationController::class, 'store'])-
 Route::get('office-location/edit/{id}',[OfficeLocationController::class, 'edit'])->name('office.edit');
 Route::put('office-location/update/{id}',[OfficeLocationController::class, 'update'])->name('office.update');
 Route::delete('office-location/delete/{id}',[OfficeLocationController::class, 'delete'])->name('office.delete');
+
+Route::get('working-hour',[WorkingHourController::class, 'index'])->name('workingHour');
+Route::get('working-hour/create',[WorkingHourController::class, 'create'])->name('workingHour.create');
+Route::post('working-hour/store',[WorkingHourController::class, 'store'])->name('workingHour.store');
+Route::get('working-hour/edit/{id}',[WorkingHourController::class, 'edit'])->name('workingHour.edit');
+Route::put('working-hour/update/{id}',[WorkingHourController::class, 'update'])->name('workingHour.update');
+Route::delete('working-hour/delete/{id}',[WorkingHourController::class, 'delete'])->name('workingHour.delete');
