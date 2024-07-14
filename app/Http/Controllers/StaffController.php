@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Staff;
 use App\Models\User;
 use App\Models\Department;
+use App\Models\WorkingHour;
+use App\Models\StaffWorkingHour;
 
 
 
@@ -164,6 +166,105 @@ class StaffController extends Controller
             DB::rollBack();
 
             return redirect()->back()->with('error', 'Failed to delete staff. Please try again.');
+        }
+    }
+
+    public function config($id) {
+        $data['days'] = ['senin', 'selasa', 'rabu', 'kamis', 'jumat', 'sabtu', 'minggu'];
+        $data['hours'] = WorkingHour::all();
+        $data['staff'] = Staff::find($id);
+        $data['countHour'] = StaffWorkingHour::where('id_user', $id)->count();
+
+        $data['staffWorkingHours'] = StaffWorkingHour::where('id_user', $id)->get();
+       
+        if($data['countHour'] > 0) {
+            return view('staff.config-edit', $data);
+
+        } else {
+            return view('staff.config', $data);
+        }
+    }
+
+    public function configStore(Request $request) {
+        
+        $request->validate([
+            'id_user' => 'required',
+            'days' => 'required|array', // days harus berupa array
+            'days.*' => 'in:senin,selasa,rabu,kamis,jumat,sabtu,minggu', // setiap nilai days harus sesuai dengan hari yang diizinkan
+            'id_working_hour' => 'required|array', // id_working_hour harus berupa array
+            'id_working_hour.*' => 'required|exists:working_hours,id', // setiap id_working_hour harus valid sesuai dengan data working_hours
+        ]);
+    
+        try {
+            // Mulai transaksi database jika diperlukan
+            DB::beginTransaction();
+    
+            foreach ($request->days as $index => $day) {
+                $workingHourId = $request->id_working_hour[$index];
+    
+                // Simpan atau update data sesuai kebutuhan Anda
+                // Contoh penyimpanan:
+                $config = new StaffWorkingHour(); // Ganti dengan model dan tabel yang sesuai
+                $config->id_user = $request->id_user;
+                $config->days = $day;
+                $config->id_working_hour = $workingHourId;
+                $config->save();
+            }
+    
+            // Commit transaksi jika tidak ada masalah
+            DB::commit();
+    
+            // Redirect atau response sukses
+            return redirect()->back()->with('success', 'Data konfigurasi berhasil disimpan.');
+        } catch (\Exception $e) {
+            // Rollback transaksi jika terjadi kesalahan
+            DB::rollback();
+            dd($e->getMessage());
+    
+            // Redirect atau response error
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data konfigurasi.');
+        }
+    }
+
+    public function configUpdate(Request $request, $id) {
+        $request->validate([
+            'id_user' => 'required|exists:users,id',
+            'days' => 'required|array',
+            'days.*' => 'in:senin,selasa,rabu,kamis,jumat,sabtu,minggu',
+            'id_working_hour' => 'required|array',
+            'id_working_hour.*' => 'required|exists:working_hours,id',
+        ]);
+    
+        try {
+            // Mulai transaksi database
+            DB::beginTransaction();
+    
+            // Hapus entri StaffWorkingHour yang ada untuk user dan hari tertentu
+            StaffWorkingHour::where('id_user', $id)->delete();
+    
+            // Iterasi melalui hari dan jam kerja yang dipilih
+            foreach ($request->days as $index => $day) {
+                $workingHourId = $request->id_working_hour[$index];
+    
+                // Buat entri baru atau update yang sudah ada
+                $config = new StaffWorkingHour();
+                $config->id_user = $request->id_user;
+                $config->days = $day;
+                $config->id_working_hour = $workingHourId;
+                $config->save();
+            }
+    
+            // Commit transaksi jika tidak ada masalah
+            DB::commit();
+    
+            // Redirect atau response sukses
+            return redirect()->route('staff.config')->with('success', 'Data konfigurasi berhasil diperbarui.');
+        } catch (\Exception $e) {
+            // Rollback transaksi jika terjadi kesalahan
+            DB::rollback();
+    
+            // Redirect atau response error
+            return redirect()->route('staff.config', ['id' => $id])->with('error', 'Terjadi kesalahan saat memperbarui data konfigurasi.');
         }
     }
 }

@@ -54,6 +54,9 @@ Route::post('staff/store',[StaffController::class, 'store'])->name('staff.store'
 Route::get('staff/edit/{id}',[StaffController::class, 'edit'])->name('staff.edit');
 Route::put('staff/update/{id}',[StaffController::class, 'update'])->name('staff.update');
 Route::delete('staff/delete/{id}',[StaffController::class, 'delete'])->name('staff.delete');
+Route::get('staff/config/working-hour/{id}',[StaffController::class, 'config'])->name('staff.config');
+Route::post('staff/config/working-hour/store',[StaffController::class, 'configStore'])->name('staff.configStore');
+Route::put('staff/config/{id}/working-hour/update',[StaffController::class, 'configUpdate'])->name('staff.configUpdate');
 
 Route::get('office-location',[OfficeLocationController::Class, 'index'])->name('office');
 Route::post('office-location/store',[OfficeLocationController::class, 'store'])->name('office.store');
