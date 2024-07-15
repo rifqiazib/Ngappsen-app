@@ -6,8 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+use Carbon\Carbon;
+
+use App\Helpers\DayHelper;
 use App\Models\Attedance;
 use App\Models\OfficeLocation;
+use App\Models\StaffWorkingHour;
 
 class AttedanceController extends Controller
 {
@@ -20,6 +24,12 @@ class AttedanceController extends Controller
     public function create() {
         $date = date("Y-m-d");
         $id_user = Auth::user()->id;
+        $today = Carbon::now()->isoFormat('dddd');
+
+        $daysId = translateDayToIndonesian($today);
+
+        $data['workingHours'] = StaffWorkingHour::where('id_user', $id_user)->where('days', $daysId)->with('workingHour')->get();
+        
         $data['officeLocation'] = DB::table('office_locations')->where('id', 2)->first();
         
         $data['check'] = DB::table('attedances')->where('date', $date)->where('id_user', $id_user)->count();
@@ -30,7 +40,7 @@ class AttedanceController extends Controller
        $id_user = Auth::user()->id;
        $officeLocation = DB::table('office_locations')->where('id', 2)->first();
        $office = explode(',', $officeLocation->location);
-      
+
        $date = date("Y-m-d");
        $entry_time = date("H:i:s");
        $location = $request->location;
@@ -42,34 +52,58 @@ class AttedanceController extends Controller
        $distances = $this->distance($lat_office, $long_office, $lat_user, $long_user);
        $radius = round($distances["meters"]);
 
-
+       $today = Carbon::now()->isoFormat('dddd');
+       $currentTime = Carbon::now();
+       $currentHour = $currentTime->format('H:i:s');
+       $daysId = translateDayToIndonesian($today);
+       $workingHours = StaffWorkingHour::where('id_user', $id_user)->where('days', $daysId)->with('workingHour')->first();
+       $earlyEntryTime = $workingHours->workingHour->early_entry;
+       $endEntry = $workingHours->workingHour->end_entry;
+       
        $check = DB::table('attedances')->where('date', $date)->where('id_user', $id_user)->count();
        if($radius > $officeLocation->radius) {
         return "error|Maaf Anda Berada Di Luar Radius|";
        } else {
            if($check > 0) {
-            $data = [
-                'home_time' => $entry_time,
-                'home_location'=> $location
-            ];
-            $update = DB::table('attedances')->where('date', $date)->where('id_user', $id_user)->update($data);
-            if ($update) {
-                return "success|Terimakasih! Hati - Hati Di Jalan|out";
-            } else {
-                return "error|Absen gagal, Silahkan hubungi tim IT|out";
-            }
+                $data = [
+                    'home_time' => $entry_time,
+                    'home_location'=> $location
+                ];
+                $update = DB::table('attedances')->where('date', $date)->where('id_user', $id_user)->update($data);
+                if ($update) {
+                    return "success|Terimakasih! Hati - Hati Di Jalan|out";
+                } else {
+                    return "error|Absen gagal, Silahkan hubungi tim IT|out";
+                }
            } else {
-            $data = [
-                'id_user' => $id_user,
-                'date' => $date,
-                'entry_time' => $entry_time,
-                'entry_location' => $location
-            ];
-            $save = DB::table('attedances')->insert($data);
-            if ($save) {
-                return "success|Terimakasih! Selamat Bekerja|in";
+            if($entry_time < $earlyEntryTime) {
+                return "error|Absen gagal, Belum waktunya Absen|out";
+            } elseif($entry_time > $endEntry){
+                $data = [
+                    'id_user' => $id_user,
+                    'date' => $date,
+                    'entry_time' => $entry_time,
+                    'entry_location' => $location
+                ];
+                $save = DB::table('attedances')->insert($data);
+                if ($save) {
+                    return "success|Absen berhasil, Anda terlambat|out";
+                } else {
+                    return "error|Absen gagal, Silahkan hubungi tim IT|out";
+                }   
             } else {
-                return "error|Absen gagal, Silahkan hubungi tim IT|out";
+                $data = [
+                    'id_user' => $id_user,
+                    'date' => $date,
+                    'entry_time' => $entry_time,
+                    'entry_location' => $location
+                ];
+                $save = DB::table('attedances')->insert($data);
+                if ($save) {
+                    return "success|Terimakasih! Selamat Bekerja|in";
+                } else {
+                    return "error|Absen gagal, Silahkan hubungi tim IT|out";
+                }   
             }
            }
        }

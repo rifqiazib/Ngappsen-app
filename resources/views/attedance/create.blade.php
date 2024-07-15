@@ -16,10 +16,17 @@
                 <div class="relative z-0 w-full mb-5 border rounded group">
                     <div id="map"></div>
                 </div>
-                <div class="flex">
+                <div class="flex flex-col">
                     @if(Auth::check())
                         <p class="text-lg">Nama : {{ Auth::user()->name }}</p>
                     @endif
+                    @foreach($workingHours as $hours)
+                        <p class="text-lg mt-4"> Hari       : {{ $hours->days }}</p>
+                        <p class="text-lg mt-4"> early      : {{ $hours->workingHour->early_entry }}</p>
+                        <p class="text-lg mt-4"> Shift      : {{ $hours->workingHour->working_name }}</p>
+                        <p class="text-lg mt-4"> Jam Masuk  : {{ $hours->workingHour->entry_time }}</p>
+                        <p class="text-lg mt-4"> Jam Pulang  : {{ $hours->workingHour->home_time }}</p>
+                    @endforeach
                 </div>
                 @if($check > 0)
                     <div class="flex justify-center">

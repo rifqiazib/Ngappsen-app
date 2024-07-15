@@ -14,4 +14,8 @@ class StaffWorkingHour extends Model
         'days',
         'id_working_hour'
     ];
+
+    public function workingHour() {
+        return $this->belongsTo(WorkingHour::class, 'id_working_hour');
+    }
 }
