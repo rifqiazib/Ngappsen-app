@@ -9,7 +9,7 @@
 <body>
     <div class="flex items-center justify-center h-screen bg-gray-100">
         <div class="bg-white p-8 rounded shadow-md w-full max-w-sm">
-            <h1 class=" text-center text-lg font-bold dark:text-white mb-4">NGAAPSEN</h1>
+            <h1 class=" text-center text-lg font-bold dark:text-white mb-4">NGAPPSEN</h1>
             <form action="{{ route('doLogin') }}" method="POST" class="max-w-sm mx-auto">
                 @csrf
                 <div class="mb-5">

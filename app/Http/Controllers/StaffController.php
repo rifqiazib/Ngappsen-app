@@ -17,11 +17,21 @@ use App\Models\StaffWorkingHour;
 
 class StaffController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
         $perPage = 10;
-        
         $data['departments'] = Department::all();
-        $data['staffs'] = Staff::with('department')->paginate($perPage); 
+
+        $params = [];
+        $filterDepartment = $data['filterDepartment'] = $params['filterDepartment'] = $request->filterDepartment ? $request->filterDepartment : null;
+        
+        $data['staffs'] = Staff::with('department')
+        ->when($filterDepartment, function($query, $filterDepartment) {
+            return $query->whereHas('department', function($query) use ($filterDepartment) {
+                $query->where('id', 'like', '%' . $filterDepartment . '%');
+            });
+        })->paginate($perPage);
+        $data['filterDepartment'] = $filterDepartment;
+
         return view('staff.index', $data);
     }
 
