@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 use App\Models\Department;
 
 class DepartmentController extends Controller
@@ -14,13 +16,21 @@ class DepartmentController extends Controller
     }
 
     public function store(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'code' => 'required|max:4',
+            'name' => 'required'
+        ]);
+
+        if($validator->fails()) {
+            return back()->withInput()->withErrors($validator);
+        }
         $data = [
             'code' => $request->code,
             'name' => $request->name
         ];
 
         $department = Department::create($data);
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Data Berhasil Disimpan');
     }
 
     public function update(Request $request){

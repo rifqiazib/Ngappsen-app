@@ -16,8 +16,8 @@ use App\Models\StaffWorkingHour;
 class AttedanceController extends Controller
 {
     public function index() {
-        $data['attedances'] = Attedance::with('user')->get();
-        
+        $perPage = 10;
+        $data['attedances'] = Attedance::with('user')->paginate($perPage);
         return view('attedance.index', $data);
     }
 

@@ -18,7 +18,7 @@
         </div>
     @endif
         <div class="flex items-center">
-            <h1>Office Location Data</h1>
+            <h1 class="text-lg font-bold dark:text-white mb-4">Edit Office Location Data</h1>
         </div>
         <div class="p-4 bg-neutral border rounded-lg  mt-14">
             <div class="relative overflow-x-auto">

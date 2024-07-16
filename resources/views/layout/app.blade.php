@@ -17,8 +17,11 @@
 <body>
     
         @include('layout.include.navbar')
-        @include('layout.include.sidebar')
-        <div class="mt-24">
+        
+        @role('Admin')
+            @include('layout.include.sidebar')
+        @endrole
+        <div class="mt-10">
             @yield('content')
         </div>
     

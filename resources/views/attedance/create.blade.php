@@ -13,19 +13,24 @@
                 <div class="relative z-0 w-full mb-5 group">
                     <input type="hidden" id="location" name="location">
                 </div>
-                <div class="relative z-0 w-full mb-5 border rounded group">
+                <a href="{{ route('dashboard') }}">
+                    <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class=" ml-4 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
+                        </svg>
+                    </button>
+                </a>
+                <div class="relative z-0 w-full mb-5 mt-4 border rounded group">
                     <div id="map"></div>
                 </div>
                 <div class="flex flex-col">
                     @if(Auth::check())
-                        <p class="text-lg">Nama : {{ Auth::user()->name }}</p>
+                        <p class="text-xl font-medium text-gray-900 dark:text-white mt-4">Nama : {{ Auth::user()->name }}</p>
                     @endif
                     @foreach($workingHours as $hours)
-                        <p class="text-lg mt-4"> Hari       : {{ $hours->days }}</p>
-                        <p class="text-lg mt-4"> early      : {{ $hours->workingHour->early_entry }}</p>
-                        <p class="text-lg mt-4"> Shift      : {{ $hours->workingHour->working_name }}</p>
-                        <p class="text-lg mt-4"> Jam Masuk  : {{ $hours->workingHour->entry_time }}</p>
-                        <p class="text-lg mt-4"> Jam Pulang  : {{ $hours->workingHour->home_time }}</p>
+                        <p class="text-xl font-medium text-gray-900 dark:text-white mt-4"> Hari       : {{ $hours->days }}</p>
+                        <p class="text-xl font-medium text-gray-900 dark:text-white mt-4"> Jam Masuk  : {{ $hours->workingHour->entry_time }}</p>
+                        <p class="text-xl font-medium text-gray-900 dark:text-white mt-4"> Jam Pulang  : {{ $hours->workingHour->home_time }}</p>
                     @endforeach
                 </div>
                 @if($check > 0)

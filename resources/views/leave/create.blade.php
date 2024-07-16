@@ -1,11 +1,20 @@
 @extends('layout.app')
 
 @section('content')
-    <div class="flex justify-center">
-        <div class="bg-zinc-50 p-8 w-6/12 rounded">  
+<div class="flex justify-center">
+    <div class="bg-zinc-50 p-8 w-6/12 rounded">  
             <form method="POST" action="{{ route('leave.store') }}" id="leave_app" class="max-w-md mx-auto ">
                 @csrf
-                <h1>Leave Application</h1>
+                <div class="flex">
+                    <a href="{{ route('dashboard') }}">
+                        <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class=" ml-4 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                            <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/>
+                            </svg>
+                        </button>
+                    </a>
+                    <h1 class="ml-4  text-3xl font-extrabold leading-none tracking-tight text-gray-900 md:text-xl dark:text-white">Leave Application</h1>
+                </div>
                 <div class="flex justify-between">
                     <div>
                         <label for="default" class="block mt-5 mb-2 text-sm font-medium text-gray-900 dark:text-white">Start</label>
@@ -31,48 +40,6 @@
             </form>
         </div>
     </div>
-
-    <div class="relative overflow-x-auto mt-4">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                <tr>
-                    <th scope="col" class="px-6 py-3">
-                        Tanggal
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Alasan
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Keterangan
-                    </th>
-                    <th scope="col" class="px-6 py-3">
-                        Status
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($leaves as $leave)
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        {{ $leave->date_start }}
-                        <span>-</span>
-                        {{ $leave->date_end }}
-                    </th>
-                    <td class="px-6 py-4">
-                        {{ $leave->status }}
-                    </td>
-                    <td class="px-6 py-4">
-                        {{ $leave->explanation }}
-                    </td>
-                    <td class="px-6 py-4">
-                        {{ $leave->status_approved }}
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div>
-
 @endsection
 
 @section('extra-js')

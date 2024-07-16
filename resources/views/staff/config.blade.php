@@ -19,7 +19,7 @@
     @endif
 
     <div class="flex items-center">
-        <h1>Set Working Hour Staff</h1>
+        <h1 class="text-lg font-bold dark:text-white mb-4">Set Working Hour Staff</h1>
     </div>
     <div class="">
         <div class="p-4 bg-neutral border rounded-lg mt-4">

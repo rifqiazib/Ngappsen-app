@@ -33,7 +33,7 @@ class LeaveController extends Controller
         ];
 
         $leave = Leave::create($data);
-        return view('dashboard.index');
+        return redirect()->route('dashboard.index')->with('success', 'Berhasil mengajukan cuti');
     }
 
     public function approval(Request $request){

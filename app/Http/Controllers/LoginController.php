@@ -30,7 +30,7 @@ class LoginController extends Controller
         ];
 
         if(Auth::attempt($user)) {
-            return view('dashboard.index');
+            return redirect()->route('dashboard');
         } else {
             return Redirect::back()->withInput()->with('failed', 'Login Failed!');
         }

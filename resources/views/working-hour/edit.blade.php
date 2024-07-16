@@ -17,10 +17,10 @@
             {{ session('success') }}
         </div>
     @endif
-        <div class="flex items-center">
-            <h1>Add Data Working Hour</h1>
+        <div class="flex items-center mt-10">
+            <h1 class="text-lg font-bold dark:text-white mb-4">Edit Data Working Hour</h1>
         </div>
-        <div class="p-4 bg-neutral border rounded-lg  mt-14">
+        <div class="p-4 bg-neutral border rounded-lg mt-4">
             <div class="relative overflow-x-auto">
                 <form action="{{ route('workingHour.update', ['id' => $works->id]) }}" method="POST" class="">
                     @csrf
