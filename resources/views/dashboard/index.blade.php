@@ -142,7 +142,7 @@
                             </svg>
                         </div>
                         <div class="flex flex-col">
-                            <span class="font-medium  text-gray-500 dark:text-gray-400">{{ $recapAttedance->total_late }}</span>
+                            <span class="font-medium  text-gray-500 dark:text-gray-400">{{ $recapAttedance->total_late ? $recapAttedance->total_late : 0  }}</span>
                             <span class="font-medium  text-gray-500 dark:text-gray-400">Karyawan Terlambat</span>
                         </div>
                     </div>

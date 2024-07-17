@@ -11,6 +11,7 @@ use App\Http\Controllers\StaffController;
 use App\Http\Controllers\OfficeLocationController;
 use App\Http\Controllers\WorkingHourController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\MasterLeaveController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,6 +79,13 @@ Route::group(['middleware' => ['role:Admin|Staff']], function () {
     Route::post('user/role/store',[UserController::class, 'storeRole'])->name('user.storeRole');
     Route::get('user/give-role/{id}',[UserController::class, 'giveRole'])->name('user.giveRole');
     Route::post('user/give-role/{id}/store',[UserController::class, 'storeGiveRole'])->name('user.storeGiveRole');
+
+    Route::get('master-leave',[MasterLeaveController::class, 'index'])->name('masterLeave');
+    Route::get('master-leave/create',[MasterLeaveController::class, 'create'])->name('masterLeave.create');
+    Route::post('master-leave/store',[MasterLeaveController::class, 'store'])->name('masterLeave.store');
+    Route::get('master-leave/edit/{id}',[MasterLeaveController::class, 'edit'])->name('masterLeave.edit');
+    Route::put('master-leave/update/{id}',[MasterLeaveController::class, 'update'])->name('masterLeave.update');
+    Route::delete('master-leave/delete/{id}',[MasterLeaveController::class, 'delete'])->name('masterLeave.delete');
 });
 
 
