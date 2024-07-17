@@ -1,7 +1,9 @@
 @extends('layout.app')
 
 @section('content')
+
     <div class="p-4 sm:ml-64">
+        @include('layout.alert')
         <div class="flex items-center mt-10">
             <h1 class="text-lg font-bold dark:text-white mb-4">Department Data</h1>
             <!-- Modal toggle -->

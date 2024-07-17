@@ -25,14 +25,11 @@ class AttedanceController extends Controller
         $date = date("Y-m-d");
         $id_user = Auth::user()->id;
         $today = Carbon::now()->isoFormat('dddd');
-
         $daysId = translateDayToIndonesian($today);
-
         $data['workingHours'] = StaffWorkingHour::where('id_user', $id_user)->where('days', $daysId)->with('workingHour')->get();
-        
         $data['officeLocation'] = DB::table('office_locations')->where('id', 2)->first();
-        
         $data['check'] = DB::table('attedances')->where('date', $date)->where('id_user', $id_user)->count();
+        
         return view('attedance.create', $data);
     }
 
@@ -108,8 +105,6 @@ class AttedanceController extends Controller
            }
        }
     }
-
-    //Menghitung Jarak
    
     function distance($lat1, $lon1, $lat2, $lon2){
         $theta = $lon1 - $lon2;

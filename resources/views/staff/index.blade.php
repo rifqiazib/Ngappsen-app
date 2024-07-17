@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="p-4 sm:ml-64">
+        @include('layout.alert')
         <div class="flex items-center mt-8">
             <h1 class="text-lg font-bold dark:text-white mb-4">Staff Data</h1>
             <a href="{{ route('staff.create') }}">

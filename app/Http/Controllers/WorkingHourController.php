@@ -21,7 +21,6 @@ class WorkingHourController extends Controller
     } 
 
     public function store(Request $request) {
-       
         $validator = Validator::make($request->all(), [
             'working_code' => 'required',
             'working_name' => 'required',
@@ -34,11 +33,8 @@ class WorkingHourController extends Controller
         if($validator->fails()) {
             return redirect()->back()->withInput()->withErrors($validator);
         }
-
-        
         $work = WorkingHour::create($request->all());
 
-        // Redirect back with a success message
         return redirect()->route('workingHour')->with('success', 'Working hour saved successfully!');
     }
 
@@ -67,12 +63,9 @@ class WorkingHourController extends Controller
             return redirect()->back()->with('error', 'Record not found.');
         }
 
-        // Update the record with the validated data
         $workingHour->update($validator->validated());
 
-        // Redirect back with a success message
-        return redirect()->route('workingHour')->with('success', 'Working hour updated successfully!');
-        
+        return redirect()->route('workingHour')->with('success', 'Working hour updated successfully!'); 
     }
 
     public function delete($id) {
@@ -80,9 +73,8 @@ class WorkingHourController extends Controller
         if (!$work) {
             return redirect()->back()->with('error', 'Working Hour not found.');
         }
-    
+
         $work->delete();
-        
         return redirect()->back()->with('success', 'Working hour deleted successfully.');
     }
 }

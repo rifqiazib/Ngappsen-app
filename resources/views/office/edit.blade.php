@@ -2,21 +2,7 @@
 
 @section('content')
     <div class="p-4 sm:ml-64">
-    @if ($errors->any())
-        <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
-
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+        @include('layout.alert')
         <div class="flex items-center">
             <h1 class="text-lg font-bold dark:text-white mb-4">Edit Office Location Data</h1>
         </div>

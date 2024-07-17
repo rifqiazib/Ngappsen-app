@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="p-4 sm:ml-64">
+        @include('layout.alert')
         <div class="flex items-center mt-10">
             <h1 class="text-lg font-bold dark:text-white mb-4"> Master Leave Data</h1>
             <a href="{{ route('masterLeave.create') }}">
@@ -10,7 +11,6 @@
                 </button>
             </a>
         </div>
-        
         <div class="p-4 bg-neutral border rounded-lg mt-4">
             <div class="relative overflow-x-auto">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">

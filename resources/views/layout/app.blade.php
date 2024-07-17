@@ -10,12 +10,11 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <title>ABSENG</title>
+    <title>NGAPPSEN</title>
     @vite(['resources/css/app.css','resources/js/app.js'])
     @yield('style')
 </head>
 <body>
-    
         @include('layout.include.navbar')
         
         @role('Admin')
@@ -24,7 +23,6 @@
         <div class="mt-10">
             @yield('content')
         </div>
-    
 </body>
 </html>
 

@@ -43,8 +43,7 @@ class DashboardController extends Controller
         ->where('attedances.date', $date)
         ->selectRaw('attedances.id_user, IF(attedances.entry_time > working_hours.end_entry, 1, 0) as is_late')
         ->groupBy('attedances.id_user', 'attedances.entry_time', 'working_hours.end_entry');
-
-        // Menghitung total kehadiran dan total keterlambatan
+        
         $data['recapAttedance'] = DB::table(DB::raw("({$subQuery->toSql()}) as sub"))
         ->mergeBindings($subQuery)
         ->selectRaw('

@@ -10,9 +10,26 @@ use App\Models\Leave;
 
 class LeaveController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
         $perPage = 10;
-        $data['leaves'] = Leave::with(['user', 'user.staff', 'user.staff.department'])->paginate($perPage);
+        $filterType = $request->filterType ? $request->filterType : null;
+        $filterStatus = $request->filterStatus ?? null;
+
+        $data['leaves'] = Leave::with(['user', 'user.staff', 'user.staff.department'])
+        ->when($filterType, function($query, $filterType ){
+            return $query->where('status', 'like', '%' . $filterType . '%');
+        })
+        ->when(isset($filterStatus), function($query) use ($filterStatus) {
+            if($filterStatus === '0') {
+                return $query->where('status_approved', '0');
+            } else {
+                return $query->where('status_approved', 'like', '%' . $filterStatus . '%');
+            }
+        })
+        ->paginate($perPage);
+        
+        $data['filterType'] = $filterType;
+        $data['filterStatus'] = $filterStatus;
 
         return view('leave.index', $data);
     }

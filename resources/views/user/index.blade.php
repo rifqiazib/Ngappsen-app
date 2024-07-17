@@ -2,22 +2,8 @@
 
 @section('content')
     <div class="p-4 sm:ml-64">
+        @include('layout.alert')
         <div class="flex items-center mt-8">
-        @if ($errors->any())
-        <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
-
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
             <h1 class="text-lg font-bold dark:text-white mb-4">Role Data</h1>
             <a href="{{ route('user.createRole') }}">
                 <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class=" ml-4 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">

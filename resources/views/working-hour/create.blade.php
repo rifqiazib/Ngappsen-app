@@ -2,25 +2,11 @@
 
 @section('content')
     <div class="p-4 sm:ml-64">
-    @if ($errors->any())
-        <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
-
-    @if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
+        @include('layout.alert')
         <div class="flex items-center mt-10">
             <h1 class="text-lg font-bold dark:text-white mb-4">Add Data Working Hour</h1>
         </div>
-        <div class="p-4 bg-neutral border rounded-lg mt-4">
+        <div class="p-4 bg-neutral border rounded-lg">
             <div class="relative overflow-x-auto">
                 <form action="{{ route('workingHour.store') }}" method="POST" class="">
                     @csrf

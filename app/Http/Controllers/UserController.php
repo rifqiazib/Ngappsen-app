@@ -33,7 +33,6 @@ class UserController extends Controller
         }
 
         try {
-            // Create the role using Spatie's Role model
             $role = Role::create(['name' => $request->input('name')]);
             return redirect()->route('User')->with('success', 'Data Berhasil Disimpan');
         } catch (QueryException $e) {
