@@ -24,7 +24,7 @@ class DashboardController extends Controller
         $data['recapAttedanceUser'] = DB::table(DB::raw("({$subQueryUser->toSql()}) as sub"))
         ->mergeBindings($subQueryUser)
         ->selectRaw('
-            COUNT(DISTINCT sub.id_user) as total_attedance, 
+            COUNT(sub.id_user) as total_attedance, 
             SUM(sub.is_late) as total_late')
         ->first();
 

@@ -100,13 +100,27 @@
                             {{ $leave->date_end }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $leave->status }}
+                                @if($leave->status == 'i')
+                                    Izin
+                                @elseif($leave->status == 's')
+                                    Sakit
+                                @else
+                                    {{ $leave->status }}
+                                @endif
                             </td>
                             <td class="px-6 py-4">
                                 {{ $leave->explanation }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $leave->status_approved }}
+                                @if($leave->status_approved == 0)
+                                    Pending
+                                @elseif($leave->status_approved == 1)
+                                    Approved
+                                @elseif($leave->status_approved == 2)
+                                    Rejected
+                                @else
+                                    {{ $leave->status_approved }}
+                                @endif
                             </td>        
                         </tr>
                         @endforeach

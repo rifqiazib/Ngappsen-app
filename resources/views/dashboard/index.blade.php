@@ -25,16 +25,16 @@
             </div>
             <div class="flex justify-between space-x-4 mt-8">
                 <div class="w-full"> 
-                    <a href="#" class="block w-full p-6 bg-green-200 border border-gray-200 rounded-lg shadow hover:bg-green-300 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                    <div class="block w-full p-6 bg-green-200 border border-gray-200 rounded-lg shadow hover:bg-green-300 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">ABSEN MASUK </h5>
                         <p class="text-xl font-medium text-gray-900 dark:text-white">{{ $attedance != null && $attedance->entry_time != null ? $attedance->entry_time : "Belum Absen" }}</p>
-                    </a>
+                    </div>
                 </div>
                 <div class="w-full"> 
-                    <a href="#" class="block w-full p-6 bg-red-200 border border-gray-200 rounded-lg shadow hover:bg-red-300 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                    <div  class="block w-full p-6 bg-red-200 border border-gray-200 rounded-lg shadow hover:bg-red-300 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">ABSEN KELUAR</h5>
                         <p class="text-xl font-medium text-gray-900 dark:text-white">{{ $attedance != null && $attedance->home_time != null ? $attedance->home_time : 'Belum Absen' }}</p>
-                    </a>
+                    </div>
                 </div>
             </div>
             <a href="{{ route('attedance.create') }}" class="flex justify-center mt-4 items-center px-4 py-2 text-sm font-medium text-center text-black bg-zinc-200 rounded-lg hover:bg-zinc-300 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-zinc-400 dark:focus:ring-blue-800">

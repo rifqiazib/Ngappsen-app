@@ -130,10 +130,12 @@
                                 {{ $user->name }}
                             </td>
                             <td class="px-6 py-4">
-                                {{ $user->email }}
+                               {{ $user->email }}
                             </td>
                             <td class="px-6 py-4">
-                                ADMIN
+                                @foreach($user->roles as $role)
+                                    {{ $role->name }}
+                                @endforeach
                             </td>
                             <td class="flex items-center justify gap-4 px-6 py-4">
                                 <a href="{{ route('user.giveRole', ['id' => $user->id]) }}">

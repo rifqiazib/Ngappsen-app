@@ -17,4 +17,9 @@ class WorkingHour extends Model
         'end_entry',
         'home_time'
     ];
+
+    public function staffWorkingHours()
+    {
+        return $this->hasMany(StaffWorkingHour::class, 'id_working_hour');
+    }
 }

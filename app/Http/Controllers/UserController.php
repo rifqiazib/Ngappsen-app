@@ -15,7 +15,8 @@ class UserController extends Controller
     public function index() {
         $perPage = 10;
         $data['roles'] = Role::paginate($perPage);
-        $data['users'] = User::paginate($perPage);
+        $data['users'] = User::with('roles')->paginate($perPage);
+        // return $data['users'];
         return view('user.index', $data);
     }
 
