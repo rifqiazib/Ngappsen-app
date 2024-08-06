@@ -168,7 +168,7 @@
                             </svg>
                         </div>
                         <div class="flex flex-col">
-                            <span class="font-medium  text-gray-500 dark:text-gray-400">{{ $recapLeave->total_permit }}</span>
+                            <span class="font-medium  text-gray-500 dark:text-gray-400">{{ $recapLeave->total_permit  ? $recapLeave->total_permit : 0  }}</span>
                             <span class="font-medium  text-gray-500 dark:text-gray-400">Karyawan Izin</span>
                         </div>
                     </div>
@@ -181,7 +181,7 @@
                             </svg>
                         </div>
                         <div class="flex flex-col">
-                            <span class="font-medium  text-gray-500 dark:text-gray-400">{{ $recapLeave->total_sick }}</span>
+                            <span class="font-medium  text-gray-500 dark:text-gray-400">{{ $recapLeave->total_sick ? $recapLeave->total_sick : 0  }}</span>
                             <span class="font-medium  text-gray-500 dark:text-gray-400">Karyawan Sakit</span>
                         </div>
                     </div>

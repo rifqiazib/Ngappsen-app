@@ -15,9 +15,23 @@ use App\Models\StaffWorkingHour;
 
 class AttedanceController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
         $perPage = 10;
-        $data['attedances'] = Attedance::with('user')->paginate($perPage);
+        
+        $filterStart =  $request->start ? Carbon::createFromFormat('m/d/Y', $request->start)->format('Y-m-d') : null;
+        $filterEnd = $request->end ? Carbon::createFromFormat('m/d/Y', $request->end)->format('Y-m-d') : null;    
+        // return $filterEnd;
+        
+        $data['attedances'] = Attedance::with('user')
+        ->when($filterStart && $filterEnd, function ($query) use ($filterStart, $filterEnd) {
+            return $query->whereBetween('date', [$filterStart, $filterEnd]);
+        })->paginate($perPage);
+
+        // return $data['attedances'];
+
+        $data['filterStart'] = $request->start;
+        $data['filterEnd'] = $request->end;
+                
         return view('attedance.index', $data);
     }
 
